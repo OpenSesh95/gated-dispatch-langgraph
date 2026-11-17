@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gated-dispatch-langgraph"
+version = "0.1.0"
+description = "The gated-dispatch control loop re-expressed as a LangGraph stateful graph: routing, verification, a fail-closed approval gate (interrupt), and a cost ledger."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["langgraph>=0.2", "langchain-core>=0.3"]
+
+[project.scripts]
+gated-dispatch-graph = "gd_graph.cli:main"
+
+[tool.setuptools]
+packages = ["gd_graph"]
