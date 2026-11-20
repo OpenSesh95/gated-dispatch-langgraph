@@ -1,0 +1,18 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install (if a Python project)
+        run: |
+          if [ -f pyproject.toml ]; then pip install -e . || pip install .; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest || true
+      - name: Test (if tests exist)
+        run: |
+          if [ -d tests ] && [ -n "$(ls tests/test_*.py tests/*_test.py 2>/dev/null)" ]; then python -m pytest -q; else echo "no python tests yet"; fi
